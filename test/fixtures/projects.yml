@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  target_date: MyString
+  start_date: MyString
+  project_manager: MyString
+  story_id: MyString
+  project_type_id: MyString
+
+two:
+  title: MyString
+  target_date: MyString
+  start_date: MyString
+  project_manager: MyString
+  story_id: MyString
+  project_type_id: MyString
