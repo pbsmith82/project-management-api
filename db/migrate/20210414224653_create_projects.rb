@@ -7,7 +7,6 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       t.string :start_date
       t.string :end_date
       t.string :project_manager
-      t.string :story_id
       t.string :project_type_id
 
       t.timestamps
