@@ -1,5 +1,5 @@
 class ProjectType < ApplicationRecord
-    has-many :projects,
+    has_many :projects
     
 
 end
