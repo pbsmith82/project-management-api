@@ -6,7 +6,7 @@ class CreateStories < ActiveRecord::Migration[6.1]
       t.string :active
       t.string :description
       t.string :acceptance_criteria
-      t.string :project_id
+      t.integer :project_id
 
       t.timestamps
     end
