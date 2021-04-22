@@ -25,20 +25,20 @@ class ProjectsController < ApplicationController
 #         render json: {message: "successfully deleted #{item.name}"}
 #     end 
 
-#     def update 
-#         item = Item.find(params[:id])
-#         if item.update(item_params)
-#             render json: ItemSerializer.new(item)
-#         else 
-#             render json: {error: "could not save"}
-#         end
-#     end 
+    def update 
+        project = Project.find(params[:id])
+        if project.update(project_params)
+            render json: ProjectSerializer.new(project)
+        else 
+            render json: {error: "could not save"}
+        end
+    end 
 
-#     private 
+    private 
 
-#     def item_params
-#         params.require(:item).permit(:price, :description, :name, :category_id)
-#     end
+    def project_params
+        params.require(:project).permit(:title, :description, :status, :project_manager, :project_type_id, :target_date)
+    end
 
 # end
 
