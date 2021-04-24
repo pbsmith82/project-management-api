@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
     def index
         projects = Project.all
-        render json: ProjectSerializer.new(projects)
+        render json: ProjectSerializer.new(projects, {include: [:project_type]})
     end
 
     def show 
@@ -9,28 +9,28 @@ class ProjectsController < ApplicationController
         render json: ProjectSerializer.new(project)
     end 
 
-#     def create
-#         item = Item.new(item_params)
-#         if item.save
-#             render json: ItemSerializer.new(item)
-#         else 
-#             render json: {error: "oops"}
-#         end 
+    def create
+        project = Project.new(project_create_params)
+        if project.save
+            render json: ProjectSerializer.new(project)
+        else 
+            render json: {error: "oops"}
+        end 
 
-#     end 
+    end 
 
-#     def destroy 
-#         item = Item.find(params[:id])
-#         item.destroy 
-#         render json: {message: "successfully deleted #{item.name}"}
-#     end 
+    def destroy 
+        project = Project.find(params[:id])
+        project.destroy 
+        render json: {message: "Successfully Deleted Project: #{project.title}!"}
+    end 
 
     def update 
         project = Project.find(params[:id])
         if project.update(project_params)
             render json: ProjectSerializer.new(project)
         else 
-            render json: {error: "could not save"}
+            render json: {error: "Project Couldn't Be Saved!"}
         end
     end 
 
@@ -40,7 +40,9 @@ class ProjectsController < ApplicationController
         params.require(:project).permit(:title, :description, :status, :project_manager, :project_type_id, :target_date)
     end
 
-# end
+    def project_create_params
+        params.require(:project).permit(:title, :description, :status, :project_manager, :project_type_id, :target_date, :start_date)
+    end
 
 
 
