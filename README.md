@@ -30,4 +30,4 @@ Users will be able to create projects, status them as a whole. As well as, creat
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## License
-Project Management is available as open source under the terms of the [MIT License](https://github.com/pbsmith82/project-management-api/blob/main/LICENSE).
+Project Management is available as open source under the terms of the [MIT License](https://github.com/pbsmith82/project-management-api/blob/master/LICENSE).
