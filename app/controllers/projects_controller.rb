@@ -14,6 +14,7 @@ class ProjectsController < ApplicationController
         if project.save
             render json: ProjectSerializer.new(project)
         else 
+            #byebug
             render json: {error: "Project Couldn't Be Saved!"}
         end 
 
