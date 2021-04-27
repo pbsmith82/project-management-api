@@ -24,13 +24,23 @@ DATA = {
         ["Goodwin HR", "In Process", "A Human Resources Application for Goodwin Corp.", "2022-05-05","2021-05-05", "Brandon Hyrcyk" , 4],
         ["Micheals BluePrints", "Resolved", "Application to Store & Review Blueprints.", "2022-06-05","2021-06-05", "Sarah Howards", 5],
         ["Granger Documents", "Closed", "A Document Platform for Granger Industries.", "2022-07-05","2021-07-05", "Jennifer Donners", 1]
+    ],
+    :story_keys =>
+        ["title", "status", "description", "acceptance_criteria", "project_id"],
+    :stories => [
+        ["Ceneus Dashboard", "New", "As a user I need a census dashboard", "A census dashboard will be created", 1],
+        ["Login Screen", "In Process", "As a User I need the ability Login", "A login Screen Will be created", 2],
+        ["Route Dashboard", "New", "As a manager I need to see metrics on our routes.", "A Routes BI Dashboard will be created", 3],
+        ["Employee Files", "In Process", "As a User I need a folder for each Employee.", "A New Folder system will be created.", 4],
+        ["Canvas Modal", "Resolved", "As a user I need a canvas area to sketch.", "A new canvas aread will be created", 5],
+        ["Global Search Feature", "Closed", "As a user I need a quick search tool.", "A global Search tool will be created",1]
     ]
 }
 
 def main
     make_project_types
     make_projects
-    # make_walks
+    make_stories
 end
 
 def make_project_types
@@ -53,11 +63,14 @@ def make_projects
     end
 end
 
-# def make_walks
-#     Dog.all.each do |dog|
-#      walk = dog.walks.build(distance: 1, fed: true, watered: true, user_id: dog.id)
-#      walk.save
-#     end
-# end
+def make_stories
+  DATA[:stories].each do |story|
+    new_story = Story.new
+    story.each_with_index do |attribute, index|
+      new_story.send(DATA[:story_keys][index] + "=", attribute)
+    end
+    new_story.save
+  end
+end
 
 main
