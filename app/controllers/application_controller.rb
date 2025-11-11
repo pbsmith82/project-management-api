@@ -35,8 +35,13 @@ class ApplicationController < ActionController::API
   
   def cors_preflight_check
     # This is called as a before_action - rack-cors should handle it, but this is a backup
+    # Only handle OPTIONS if rack-cors didn't already process it
     if request.method == 'OPTIONS'
-      cors_preflight
+      # Check if CORS headers are already set by middleware
+      # If not, set them manually
+      unless headers['Access-Control-Allow-Origin'].present?
+        cors_preflight
+      end
     end
   end
   
