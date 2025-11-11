@@ -1,4 +1,4 @@
-class AIService
+class AiService
   require 'openai'
   require 'json'
   

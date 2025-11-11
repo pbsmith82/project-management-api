@@ -4,7 +4,7 @@ class AiController < ApplicationController
     project_type = params[:project_type]
     project_manager = params[:project_manager]
     
-    description = AIService.generate_project_description(title, project_type: project_type, project_manager: project_manager)
+    description = AiService.generate_project_description(title, project_type: project_type, project_manager: project_manager)
     
     if description
       render json: { description: description, ai_generated: true }
@@ -17,7 +17,7 @@ class AiController < ApplicationController
     title = params[:title]
     description = params[:description]
     
-    criteria = AIService.generate_acceptance_criteria(title, description)
+    criteria = AiService.generate_acceptance_criteria(title, description)
     
     if criteria
       render json: { acceptance_criteria: criteria, ai_generated: true }
@@ -29,7 +29,7 @@ class AiController < ApplicationController
   def suggest_tags
     content = params[:content] || ''
     
-    tags = AIService.suggest_tags(content)
+    tags = AiService.suggest_tags(content)
     
     render json: { tags: tags }
   end
@@ -37,8 +37,8 @@ class AiController < ApplicationController
   def calculate_risk
     project = Project.find(params[:project_id])
     
-    risk_data = AIService.calculate_risk_score(project)
-    prediction = AIService.predict_completion_date(project)
+    risk_data = AiService.calculate_risk_score(project)
+    prediction = AiService.predict_completion_date(project)
     
     # Update project with risk data
     project.update(
@@ -68,7 +68,7 @@ class AiController < ApplicationController
       }
     }
     
-    insights = AIService.generate_insights(analytics_data)
+    insights = AiService.generate_insights(analytics_data)
     
     render json: { insights: insights }
   end
@@ -83,7 +83,7 @@ class AiController < ApplicationController
     end
     
     projects = Project.all.limit(50)
-    results = AIService.semantic_search(query, projects, limit: limit)
+    results = AiService.semantic_search(query, projects, limit: limit)
     
     if results.any?
       render json: ProjectSerializer.new(results).serializable_hash
@@ -96,7 +96,7 @@ class AiController < ApplicationController
     project = Project.find(params[:project_id])
     limit = params[:limit]&.to_i || 5
     
-    similar = AIService.find_similar_projects(project, limit: limit)
+    similar = AiService.find_similar_projects(project, limit: limit)
     
     if similar.any?
       render json: ProjectSerializer.new(similar).serializable_hash
@@ -108,7 +108,7 @@ class AiController < ApplicationController
   def detect_duplicates
     project = Project.find(params[:project_id])
     
-    duplicates = AIService.detect_duplicates(project)
+    duplicates = AiService.detect_duplicates(project)
     
     if duplicates.any?
       render json: ProjectSerializer.new(duplicates).serializable_hash
