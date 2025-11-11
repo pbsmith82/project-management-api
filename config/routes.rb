@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # Handle CORS preflight requests
+  match '*path', to: 'application#cors_preflight', via: :options
+  
   # Authentication
   post '/auth/register', to: 'auth#register'
   post '/auth/login', to: 'auth#login'

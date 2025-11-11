@@ -14,6 +14,12 @@ Rails.application.configure do
 
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
+  
+  # Allow CORS to work properly
+  config.action_dispatch.default_headers = {
+    'X-Frame-Options' => 'ALLOWALL',
+    'X-Content-Type-Options' => 'nosniff'
+  }
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
