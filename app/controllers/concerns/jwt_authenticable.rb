@@ -1,14 +1,24 @@
 module JwtAuthenticable
   extend ActiveSupport::Concern
   
-  SECRET_KEY = Rails.application.credentials.secret_key_base || 'your-secret-key-change-in-production'
+  def secret_key
+    @secret_key ||= begin
+      if Rails.application.credentials.respond_to?(:secret_key_base) && Rails.application.credentials.secret_key_base.present?
+        Rails.application.credentials.secret_key_base
+      elsif ENV['SECRET_KEY_BASE'].present?
+        ENV['SECRET_KEY_BASE']
+      else
+        'your-secret-key-change-in-production'
+      end
+    end
+  end
   
   def encode_token(payload)
-    JWT.encode(payload, SECRET_KEY)
+    JWT.encode(payload, secret_key)
   end
   
   def decode_token(token)
-    decoded = JWT.decode(token, SECRET_KEY)[0]
+    decoded = JWT.decode(token, secret_key)[0]
     HashWithIndifferentAccess.new(decoded)
   rescue JWT::DecodeError
     nil

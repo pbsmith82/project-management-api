@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  # Handle CORS preflight requests
-  match '*path', to: 'application#cors_preflight', via: :options
+  # CORS preflight requests are handled by rack-cors middleware
+  # No need for explicit OPTIONS routes
   
   # Authentication
   post '/auth/register', to: 'auth#register'
