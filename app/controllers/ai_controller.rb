@@ -1,4 +1,4 @@
-class AIController < ApplicationController
+class AiController < ApplicationController
   def generate_description
     title = params[:title]
     project_type = params[:project_type]
