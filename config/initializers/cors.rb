@@ -7,10 +7,18 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins '*'
+    # Allow requests from frontend domain
+    origins [
+      'https://projectmanagement.phillipbsmith.com',
+      'http://localhost:3001',
+      'http://localhost:3000',
+      /http:\/\/localhost:\d+/
+    ]
 
     resource '*',
       headers: :any,
-      methods: [:get, :post, :put, :patch, :delete, :options, :head]
+      methods: [:get, :post, :put, :patch, :delete, :options, :head],
+      credentials: false,
+      max_age: 86400
   end
 end
